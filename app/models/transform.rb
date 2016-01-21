@@ -7,7 +7,8 @@ class Transform < ActiveRecord::Base
     header = spreadsheet.row(1)
     row_count = 0
     (2..spreadsheet.last_row).each do |i|
-      next unless spreadsheet.row(i)[0].present?
+      #next unless spreadsheet.row(i)[0].present?
+      next unless (spreadsheet.row(i)[0] == "EMPLOYEE_IDENTIFIER") || (spreadsheet.row(i)[0] == "DEPENDENT")
       row_count += 1
       # if spreadsheet.row(i)[0].present? &&
       #   next unless spreadsheet.row(i)[0].is_a? Numeric

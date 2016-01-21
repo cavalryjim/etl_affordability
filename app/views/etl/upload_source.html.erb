@@ -3,15 +3,20 @@
    <div class="columns large-6">
      <div class="callout">
       	
-	  <%= form_tag import_source_path, multipart: true  do %>
+	  <%= form_tag import_source_path, multipart: true, id: 'etl_form'  do %>
 	    <div class="row">
 		  <div class="large-6 small-12 columns ">
-		    <%= file_field_tag :file, class: 'upload_file', required: true %>	
+		    <%= file_field_tag :file, class: 'upload_file', id: 'file_selector', required: true %>	
 	      </div>
 		</div>
 		<div class="row">
-		  <div class="small-6 columns ">
-		    <%= submit_tag "Import", class: "button medium" %>  
+		  <div class="small-4 columns ">
+		    <%= submit_tag "Import", class: "button medium", id: 'submit_button' %>  
+	      </div>
+	      <div class="small-8 columns">
+	      	<span id="processing_msg" class="hidden">
+	      	  <%= image_tag 'fading-loader.svg', size: ('40x40') %> ...processing file, please wait.	
+	      	</span>
 	      </div>
 	    </div>
 	  <% end %>
