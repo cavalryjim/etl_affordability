@@ -15,3 +15,8 @@
  *= require foundation_and_overrides
 
  */
+
+.screen_width {
+  max-width: 100% !important;
+  min-width: 100% !important;
+}
