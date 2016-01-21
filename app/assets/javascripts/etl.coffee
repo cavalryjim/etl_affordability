@@ -5,8 +5,9 @@
 # $("#etl_form").on('submit') ->
 # #$("input[type=submit]").click ->
   # alert 'clicked'
+# $('#etl_form').submit -> 
 
-$ -> $("#submit_button").click -> # $('#etl_form').submit -> 
+$ -> $("#submit_button").click -> 
   #alert 'clicked' # $(@).find('.ajax-loader').show()
   
   if $('#file_selector').val() != ""

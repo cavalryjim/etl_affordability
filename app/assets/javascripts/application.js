@@ -13,9 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
 
 
+// JDavis: turbolinks needs to come after invoking foundation
+//= require turbolinks 
