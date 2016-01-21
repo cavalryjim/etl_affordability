@@ -1,0 +1,21 @@
+<section>
+ <div class="row">
+   <div class="columns large-6">
+     <div class="callout">
+      	
+	  <%= form_tag import_source_path, multipart: true  do %>
+	    <div class="row">
+		  <div class="large-6 small-12 columns ">
+		    <%= file_field_tag :file, class: 'upload_file', required: true %>	
+	      </div>
+		</div>
+		<div class="row">
+		  <div class="small-6 columns ">
+		    <%= submit_tag "Import", class: "button medium" %>  
+	      </div>
+	    </div>
+	  <% end %>
+     </div>
+   </div>
+ </div>
+</section>
