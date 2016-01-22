@@ -5,8 +5,15 @@ class EtlController < ApplicationController
     
   end
   
-  def present_xls
+  def result
     
+  end
+  
+  def output
+    @employees = Employee.all
+    respond_to do |format|
+      format.xls
+    end
   end
   
   # post /import_source
@@ -18,7 +25,7 @@ class EtlController < ApplicationController
       notice = "No file was selected."
     end
     
-    redirect_to present_xls_path, notice: notice
+    redirect_to result_path, notice: notice
   end
   
 end

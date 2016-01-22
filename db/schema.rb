@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120235734) do
+ActiveRecord::Schema.define(version: 20160121234151) do
+
+  create_table "coverages", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.string   "plan_name"
+    t.string   "outcome"
+    t.date     "enrollemnt_date"
+    t.date     "disenrollment_date"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.date     "offer_date"
+  end
+
+  create_table "dependents", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.integer  "ssn"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "dob"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.integer  "ssn"
+    t.integer  "emp_id"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "dob"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "transforms", force: :cascade do |t|
     t.string   "source_file_name"

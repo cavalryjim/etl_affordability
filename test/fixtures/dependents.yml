@@ -1,13 +1,16 @@
 # == Schema Information
 #
-# Table name: transforms
+# Table name: dependents
 #
-#  id               :integer          not null, primary key
-#  source_file_name :string
-#  output_file_name :string
-#  ip_address       :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id          :integer          not null, primary key
+#  employee_id :integer
+#  ssn         :integer
+#  first_name  :string
+#  middle_name :string
+#  last_name   :string
+#  dob         :date
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

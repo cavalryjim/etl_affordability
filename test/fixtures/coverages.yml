@@ -1,13 +1,16 @@
 # == Schema Information
 #
-# Table name: transforms
+# Table name: coverages
 #
-#  id               :integer          not null, primary key
-#  source_file_name :string
-#  output_file_name :string
-#  ip_address       :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                 :integer          not null, primary key
+#  employee_id        :integer
+#  plan_name          :string
+#  outcome            :string
+#  enrollemnt_date    :date
+#  disenrollment_date :date
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  offer_date         :date
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

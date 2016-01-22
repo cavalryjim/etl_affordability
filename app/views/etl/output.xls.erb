@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Employee ID</Data></Cell>
+        <Cell><Data ss:Type="String">Employee Name</Data></Cell>
+        <Cell><Data ss:Type="String">Relationship to Employee</Data></Cell>
+        <Cell><Data ss:Type="String">Dependent Name</Data></Cell>
+        <Cell><Data ss:Type="String">Dependent SSN</Data></Cell>
+        <Cell><Data ss:Type="String">Dependent DOB</Data></Cell>
+        <Cell><Data ss:Type="String">Plan Name</Data></Cell>
+        <Cell><Data ss:Type="String">Date of Offer</Data></Cell>
+        <Cell><Data ss:Type="String">Outcome of Offer</Data></Cell>
+        <Cell><Data ss:Type="String">Enrollment Date</Data></Cell>
+        <Cell><Data ss:Type="String">Disenrollment Date</Data></Cell>
+      </Row>
+    <% @employees.each do |employee| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= employee.emp_id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.relationship %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.ssn %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.dob %></Data></Cell>
+      </Row>
+      
+      <% employee.coverages.each do |coverage| %>
+	    <Row>
+	      <Cell><Data ss:Type="String"><%= employee.emp_id %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= employee.relationship %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= employee.ssn %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= employee.dob %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.name %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.offer_date %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.outcome %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.enrollemnt_date %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.disenrollemnt_date %></Data></Cell>
+	    </Row>
+      <% end %>
+      
+      <% employee.dependents.each do |dependent| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= employee.emp_id %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= dependent.relationship %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= dependent.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= dependent.ssn %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= dependent.dob %></Data></Cell>
+        </Row>
+      <% end %>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

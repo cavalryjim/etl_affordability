@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   
   post 'import_source' => 'etl#import_source', as: :import_source
+  get 'output' => 'etl#output', as: :output
+  get 'result' => 'etl#result', as: :result
   get 'present_xls' => 'etl#present_xls', as: :present_xls
   
   root 'etl#upload_source'
