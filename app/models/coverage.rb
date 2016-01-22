@@ -6,7 +6,7 @@
 #  employee_id        :integer
 #  plan_name          :string
 #  outcome            :string
-#  enrollemnt_date    :date
+#  enrollment_date    :date
 #  disenrollment_date :date
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

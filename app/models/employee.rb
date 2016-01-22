@@ -28,8 +28,12 @@ class Employee < ActiveRecord::Base
   
   def coverage_names
     coverages.map do |coverage|
-      coverage.name
+      coverage.plan_name
     end
   end
   
+  def display_ssn
+    s = ssn.to_s
+    "#{s[0,3]}-#{s[3,2]}-#{s[5,4]}"
+  end
 end

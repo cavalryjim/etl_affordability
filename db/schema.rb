@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121234151) do
+ActiveRecord::Schema.define(version: 20160122031935) do
 
   create_table "coverages", force: :cascade do |t|
     t.integer  "employee_id"
     t.string   "plan_name"
     t.string   "outcome"
-    t.date     "enrollemnt_date"
+    t.date     "enrollment_date"
     t.date     "disenrollment_date"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.date     "offer_date"
   end
+
+  add_index "coverages", ["employee_id"], name: "index_coverages_on_employee_id"
 
   create_table "dependents", force: :cascade do |t|
     t.integer  "employee_id"
@@ -34,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160121234151) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "dependents", ["employee_id"], name: "index_dependents_on_employee_id"
 
   create_table "employees", force: :cascade do |t|
     t.integer  "ssn"

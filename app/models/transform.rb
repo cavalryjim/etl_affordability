@@ -21,30 +21,37 @@ class Transform < ActiveRecord::Base
     #output = Roo::Excelx.new("./etl_output.xlsx")
     
     header = source.row(1)
-    row_count = 0
+    employee_count = 0
     (2..source.last_row).each do |i|
     #(2..500).each do |i| # JDavis: for testing
       row = source.row(i)
       #next unless spreadsheet.row(i)[0].present?
       #next unless (source.row(i)[0] == "EMPLOYEE_IDENTIFIER") || (source.row(i)[0] == "DEPENDENT")
       if (row[0] == "EMPLOYEE_IDENTIFIER")
-        employee = Employee.create(ssn: row[1], emp_id: row[2], first_name: row[3], middle_name: row[4], last_name: row[5], dob: row[7] )
+        if row[7].is_a?(Date)
+          dob = row[7]
+        else
+          dob = Date.strptime(row[7], '%m/%d/%Y') #row[7].to_date
+        end
+        @employee = Employee.create(ssn: row[1], emp_id: row[2], first_name: row[3], middle_name: row[4], last_name: row[5], dob: dob )
+        employee_count += 1
       end
       
-      if (row[0] == "OFFERED_COVERAGE") && employee.present?
-        employee.coverages.create(plan_name: row[6], outcome: 'waived'  ) unless (employee.coverage_names.include? row[6])
+      if (row[0] == "OFFERED_COVERAGE") && @employee.present?
+        @employee.coverages.create(plan_name: row[6], outcome: 'waived'  ) unless (@employee.coverage_names.include? row[6])
       end
       
-      if (row[0] == "SELECTED_COVERAGE") && employee.present?
-        coverage = employee.coverages.where(plan_name: row[6]).first_or_initialize
+      if (row[0] == "SELECTED_COVERAGE") && @employee.present?
+        coverage = @employee.coverages.where(plan_name: row[6]).first_or_initialize
         coverage.outcome = 'selected'
         coverage.enrollment_date = row[9]
         coverage.disenrollment_date = row[10]
         coverage.save
       end
       
-      if (row[0] == "DEPENDENT") && employee.present?
-        employee.dependents.create(ssn: row[4], first_name: row[5], middle_name: row[6], last_name: row[7], dob: row[10] )
+      if (row[0] == "DEPENDENT") && @employee.present?
+        d_dob = row[10].is_a?(Date) ? row[10] : Date.strptime(row[10], '%m/%d/%Y') if row[10].present?
+        @employee.dependents.create(ssn: row[4], first_name: row[5], middle_name: row[6], last_name: row[7], dob: d_dob )
       end
       
       # if spreadsheet.row(i)[0].present? &&
@@ -59,7 +66,7 @@ class Transform < ActiveRecord::Base
       #row_count += 1
     end
     
-    return "Success! #{row_count.to_s} rows counted."
+    return "Done! #{employee_count.to_s} employees imported."
   end
   
   def self.open_spreadsheet(file)

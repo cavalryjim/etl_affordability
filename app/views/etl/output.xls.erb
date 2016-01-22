@@ -20,14 +20,16 @@
         <Cell><Data ss:Type="String">Disenrollment Date</Data></Cell>
       </Row>
     <% @employees.each do |employee| %>
+     <% if employee.coverages.count < 1 %>
       <Row>
         <Cell><Data ss:Type="String"><%= employee.emp_id %></Data></Cell>
         <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
         <Cell><Data ss:Type="String"><%= employee.relationship %></Data></Cell>
         <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= employee.ssn %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= employee.dob %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= employee.display_ssn %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= mo_da_yr(employee.dob) %></Data></Cell>
       </Row>
+     <% end %>
       
       <% employee.coverages.each do |coverage| %>
 	    <Row>
@@ -35,13 +37,13 @@
 	      <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
 	      <Cell><Data ss:Type="String"><%= employee.relationship %></Data></Cell>
 	      <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
-	      <Cell><Data ss:Type="String"><%= employee.ssn %></Data></Cell>
-	      <Cell><Data ss:Type="String"><%= employee.dob %></Data></Cell>
-	      <Cell><Data ss:Type="String"><%= coverage.name %></Data></Cell>
-	      <Cell><Data ss:Type="String"><%= coverage.offer_date %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= employee.display_ssn %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= mo_da_yr(employee.dob) %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.plan_name %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= mo_da_yr(coverage.offer_date) %></Data></Cell>
 	      <Cell><Data ss:Type="String"><%= coverage.outcome %></Data></Cell>
-	      <Cell><Data ss:Type="String"><%= coverage.enrollemnt_date %></Data></Cell>
-	      <Cell><Data ss:Type="String"><%= coverage.disenrollemnt_date %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= mo_da_yr(coverage.enrollment_date) %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= mo_da_yr(coverage.disenrollment_date) %></Data></Cell>
 	    </Row>
       <% end %>
       
@@ -51,8 +53,8 @@
           <Cell><Data ss:Type="String"><%= employee.name %></Data></Cell>
           <Cell><Data ss:Type="String"><%= dependent.relationship %></Data></Cell>
           <Cell><Data ss:Type="String"><%= dependent.name %></Data></Cell>
-          <Cell><Data ss:Type="String"><%= dependent.ssn %></Data></Cell>
-          <Cell><Data ss:Type="String"><%= dependent.dob %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= dependent.display_ssn %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= mo_da_yr(dependent.dob) %></Data></Cell>
         </Row>
       <% end %>
     <% end %>

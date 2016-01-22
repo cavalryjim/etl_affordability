@@ -23,4 +23,9 @@ class Dependent < ActiveRecord::Base
   def relationship
     'Dependent'
   end
+  
+  def display_ssn
+    s = ssn.to_s
+    "#{s[0,3]}-#{s[3,2]}-#{s[5,4]}"
+  end
 end
