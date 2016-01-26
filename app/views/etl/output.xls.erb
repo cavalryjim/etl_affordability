@@ -39,13 +39,29 @@
 	      <Cell><Data ss:Type="String"><%= employee.relationship %></Data></Cell>
 	      <Cell><Data ss:Type="String"><!-- <%= employee.name %> --></Data></Cell>
 	      <Cell><Data ss:Type="String"><!-- <%= employee.display_ssn %> --></Data></Cell>
-	      <Cell><Data ss:Type="DateTime"><!-- <%= employee.dob %> --></Data></Cell>
+	      <Cell><!--<Data ss:Type="DateTime"> <%= employee.dob %> </Data>--></Cell>
         <!-- <Cell><Data ss:Type="Date"><%= employee.dob %> : Date - SHORT_DATE</Data></Cell> -->
 	      <Cell><Data ss:Type="String"><%= coverage.plan_name %></Data></Cell>
-	      <Cell><Data ss:Type="DateTime"><%= coverage.offer_date %></Data></Cell>
+	      
+	      <% if coverage.offer_date.present? %>
+	        <Cell><Data ss:Type="DateTime"><%= coverage.offer_date %></Data></Cell>
+	      <% else %>
+	        <Cell> </Cell>
+	      <% end %>
+	      
 	      <Cell><Data ss:Type="String"><%= coverage.outcome %></Data></Cell>
-	      <Cell><Data ss:Type="DateTime"><%= coverage.enrollment_date %></Data></Cell>
-	      <Cell><Data ss:Type="DateTime"><%= coverage.disenrollment_date %></Data></Cell>
+	      
+	      <% if coverage.enrollment_date.present? %>
+	        <Cell><Data ss:Type="DateTime"><%= coverage.enrollment_date %></Data></Cell>
+	      <% else %>
+	        <Cell> </Cell>
+	      <% end %>
+	       
+	      <% if coverage.disenrollment_date.present? %>
+	        <Cell><Data ss:Type="DateTime"><%= coverage.disenrollment_date %></Data></Cell>
+	      <% else %>
+	        <Cell> </Cell>
+	      <% end %> 
 	    </Row>
       <% end %>
       
