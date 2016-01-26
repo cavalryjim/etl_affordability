@@ -16,5 +16,8 @@
 class Coverage < ActiveRecord::Base
   belongs_to  :employee
   
-  
+  def display_name
+    
+    
+  end
 end
