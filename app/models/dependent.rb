@@ -2,15 +2,16 @@
 #
 # Table name: dependents
 #
-#  id          :integer          not null, primary key
-#  employee_id :integer
-#  ssn         :integer
-#  first_name  :string
-#  middle_name :string
-#  last_name   :string
-#  dob         :date
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  employee_id  :integer
+#  ssn          :integer
+#  first_name   :string
+#  middle_name  :string
+#  last_name    :string
+#  dob          :date
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  relationship :string
 #
 
 class Dependent < ActiveRecord::Base
@@ -20,9 +21,9 @@ class Dependent < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
-  def relationship
-    'Dependent'
-  end
+  # def relationship
+  #   'Dependent'
+  # end
   
   def display_ssn
     s = ssn.to_s

@@ -38,20 +38,23 @@ class Transform < ActiveRecord::Base
       end
       
       if (row[0] == "OFFERED_COVERAGE") && @employee.present?
-        @employee.coverages.create(plan_name: row[6], outcome: 'waived'  ) unless (@employee.coverage_names.include? row[6])
+        @employee.coverages.create(plan_name: row[6], outcome: 'Waived'  ) unless (@employee.coverage_names.include? row[6])
       end
       
       if (row[0] == "SELECTED_COVERAGE") && @employee.present?
         coverage = @employee.coverages.where(plan_name: row[6]).first_or_initialize
-        coverage.outcome = 'selected'
+        #coverage.outcome = 'selected'
+        coverage.outcome = 'Elected'
         coverage.enrollment_date = row[9]
         coverage.disenrollment_date = row[10]
         coverage.save
       end
       
+      # JDavis: if dependent = 'Spouse', must use 'Spouse'.
       if (row[0] == "DEPENDENT") && @employee.present?
         d_dob = row[10].is_a?(Date) ? row[10] : Date.strptime(row[10], '%m/%d/%Y') if row[10].present?
-        @employee.dependents.create(ssn: row[4], first_name: row[5], middle_name: row[6], last_name: row[7], dob: d_dob )
+        r = (row[8] == 'Spouse') ? 'Spouse' : 'Dependent'
+        @employee.dependents.create(ssn: row[4], first_name: row[5], middle_name: row[6], last_name: row[7], dob: d_dob, relationship: r )
       end
       
       # if spreadsheet.row(i)[0].present? &&

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122031935) do
+ActiveRecord::Schema.define(version: 20160126035156) do
 
   create_table "coverages", force: :cascade do |t|
     t.integer  "employee_id"
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20160122031935) do
     t.string   "middle_name"
     t.string   "last_name"
     t.date     "dob"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "relationship"
   end
 
   add_index "dependents", ["employee_id"], name: "index_dependents_on_employee_id"
