@@ -20,7 +20,7 @@ class Transform < ActiveRecord::Base
     return "Not a spreadsheet" unless source
     #output = Roo::Excelx.new("./etl_output.xlsx")
     
-    header = source.row(1)
+    #header = source.row(1)
     employee_count = 0
     (2..source.last_row).each do |i|
     #(2..500).each do |i| # JDavis: for testing
