@@ -17,6 +17,7 @@ class Employee < ActiveRecord::Base
   
   has_many  :dependents, dependent: :destroy
   has_many  :coverages, dependent: :destroy
+  has_many  :dependent_anomalies, dependent: :destroy
   
   def name
     "#{first_name} #{last_name}"

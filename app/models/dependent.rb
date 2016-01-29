@@ -16,6 +16,7 @@
 
 class Dependent < ActiveRecord::Base
   belongs_to  :employee
+  has_many    :dependent_anomalies, class_name: "DependentAnomaly", primary_key: "ssn"
   
   def name
     "#{first_name} #{last_name}"
@@ -28,5 +29,9 @@ class Dependent < ActiveRecord::Base
   def display_ssn
     s = ssn.to_s
     "#{s[0,3]}-#{s[3,2]}-#{s[5,4]}"
+  end
+  
+  def anomaly
+    employee.dependent_anomalies.where(dependent_ssn: ssn).last
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126035156) do
+ActiveRecord::Schema.define(version: 20160129214636) do
 
   create_table "coverages", force: :cascade do |t|
     t.integer  "employee_id"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 20160126035156) do
   end
 
   add_index "coverages", ["employee_id"], name: "index_coverages_on_employee_id"
+
+  create_table "dependent_anomalies", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.integer  "dependent_ssn"
+    t.string   "plan_name"
+    t.string   "other_stuff"
+    t.date     "enrollment_date"
+    t.date     "disenrollment_date"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "dependents", force: :cascade do |t|
     t.integer  "employee_id"

@@ -73,6 +73,21 @@
           <Cell><Data ss:Type="String"><%= dependent.name %></Data></Cell>
           <Cell><Data ss:Type="String"><%= dependent.display_ssn %></Data></Cell>
           <Cell><Data ss:Type="DateTime"><%= dependent.dob  %></Data></Cell>
+          <% if dependent.anomaly.present? %>
+            <Cell> </Cell>
+            <Cell> </Cell>
+            <Cell> </Cell>
+            <% if dependent.anomaly.enrollment_date.present? %>
+              <Cell><Data ss:Type="DateTime"><%= dependent.anomaly.enrollment_date %></Data></Cell>
+            <% else %>
+              <Cell> </Cell>
+            <% end %>
+            <% if dependent.anomaly.disenrollment_date.present? %>
+              <Cell><Data ss:Type="DateTime"><%= dependent.anomaly.disenrollment_date %></Data></Cell>
+            <% else %>
+              <Cell> </Cell>
+            <% end %>
+          <% end %>
         </Row>
       <% end %>
     <% end %>

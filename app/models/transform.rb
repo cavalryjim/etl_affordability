@@ -22,6 +22,7 @@ class Transform < ActiveRecord::Base
     
     #header = source.row(1)
     employee_count = 0
+    employee_event = ["AnnualEnrollment", "NewHireEvent" ]
     bad_date1 = "1999-12-31".to_date
     bad_date2 = "9999-12-31".to_date
     (1..source.last_row).each do |i|
@@ -43,13 +44,21 @@ class Transform < ActiveRecord::Base
         @employee.coverages.create(plan_name: row[6], outcome: 'Waived'  ) unless (@employee.coverage_names.include? row[6])
       end
       
-      if (row[0] == "SELECTED_COVERAGE") && @employee.present?
+      if (row[0] == "SELECTED_COVERAGE") && (employee_event.include? row[3] ) && @employee.present?
         coverage = @employee.coverages.where(plan_name: row[6]).first_or_initialize
         #coverage.outcome = 'selected'
         coverage.outcome = 'Elected'
         coverage.enrollment_date = row[9]
         coverage.disenrollment_date = row[10] unless ((row[10] == bad_date1) || (row[10] == bad_date2))
         coverage.save
+      end
+      
+      if (row[0] == "SELECTED_COVERAGE") && (!employee_event.include? row[3]) && (row[16].is_a? Integer) && @employee.present?
+        anomaly = @employee.dependent_anomalies.where(dependent_ssn: row[16]).first_or_initialize
+        anomaly.plan_name = row[6]
+        anomaly.enrollment_date = row[17]
+        anomaly.disenrollment_date = row[18] unless ((row[18] == bad_date1) || (row[18] == bad_date2))
+        anomaly.save
       end
       
       # JDavis: if dependent = 'Spouse', must use 'Spouse'.
