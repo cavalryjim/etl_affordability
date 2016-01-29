@@ -13,16 +13,18 @@
 class Transform < ActiveRecord::Base
   
   def self.import_source(file)
-    Employee.destroy_all
-    Dependent.destroy_all
-    Coverage.destroy_all
+    # Employee.destroy_all
+    # Dependent.destroy_all
+    # Coverage.destroy_all
     source = Transform.open_spreadsheet(file)
     return "Not a spreadsheet" unless source
     #output = Roo::Excelx.new("./etl_output.xlsx")
     
-    header = source.row(1)
+    #header = source.row(1)
     employee_count = 0
-    (2..source.last_row).each do |i|
+    bad_date1 = "1999-12-31".to_date
+    bad_date2 = "9999-12-31".to_date
+    (1..source.last_row).each do |i|
     #(2..500).each do |i| # JDavis: for testing
       row = source.row(i)
       #next unless spreadsheet.row(i)[0].present?
@@ -46,7 +48,7 @@ class Transform < ActiveRecord::Base
         #coverage.outcome = 'selected'
         coverage.outcome = 'Elected'
         coverage.enrollment_date = row[9]
-        coverage.disenrollment_date = row[10]
+        coverage.disenrollment_date = row[10] unless ((row[10] == bad_date1) || (row[10] == bad_date2))
         coverage.save
       end
       
