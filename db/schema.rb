@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129214636) do
+ActiveRecord::Schema.define(version: 20160202221641) do
 
   create_table "coverages", force: :cascade do |t|
     t.integer  "employee_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160129214636) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.date     "offer_date"
+    t.string   "plan_type"
   end
 
   add_index "coverages", ["employee_id"], name: "index_coverages_on_employee_id"
@@ -35,7 +36,10 @@ ActiveRecord::Schema.define(version: 20160129214636) do
     t.date     "disenrollment_date"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "lkq_id"
   end
+
+  add_index "dependent_anomalies", ["employee_id"], name: "index_dependent_anomalies_on_employee_id"
 
   create_table "dependents", force: :cascade do |t|
     t.integer  "employee_id"
@@ -47,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160129214636) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "relationship"
+    t.string   "lkq_id"
   end
 
   add_index "dependents", ["employee_id"], name: "index_dependents_on_employee_id"
@@ -60,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160129214636) do
     t.date     "dob"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "lkq_id"
   end
 
   create_table "transforms", force: :cascade do |t|

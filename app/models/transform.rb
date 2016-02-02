@@ -47,25 +47,37 @@ class Transform < ActiveRecord::Base
       if (row[0] == "SELECTED_COVERAGE") && (employee_event.include? row[3] ) && @employee.present?
         coverage = @employee.coverages.where(plan_name: row[6]).first_or_initialize
         #coverage.outcome = 'selected'
+        coverage.plan_type = row[7]
         coverage.outcome = 'Elected'
         coverage.enrollment_date = row[9]
         coverage.disenrollment_date = row[10] unless ((row[10] == bad_date1) || (row[10] == bad_date2))
         coverage.save
       end
       
-      if (row[0] == "SELECTED_COVERAGE") && (!employee_event.include? row[3]) && (row[16].is_a? Integer) && @employee.present?
-        anomaly = @employee.dependent_anomalies.where(dependent_ssn: row[16]).first_or_initialize
-        anomaly.plan_name = row[6]
-        anomaly.enrollment_date = row[17]
-        anomaly.disenrollment_date = row[18] unless ((row[18] == bad_date1) || (row[18] == bad_date2))
-        anomaly.save
+      if (row[0] == "SELECTED_COVERAGE") && ((row[16].is_a? Integer) || (row[15].is_a? String)) && @employee.present? #&& (!employee_event.include? row[3]) 
+        if row[16].is_a? Integer
+          anomaly = @employee.dependent_anomalies.where(dependent_ssn: row[16]).first_or_initialize
+        elsif (row[15].is_a? String) && (row[15] != "")
+          anomaly = @employee.dependent_anomalies.where(lkq_id: row[15]).first_or_initialize
+        end
+        
+        if anomaly.present?
+          anomaly.plan_name = row[6]
+          anomaly.enrollment_date ||= row[17] 
+          anomaly.disenrollment_date = row[18] unless ((row[18] == bad_date1) || (row[18] == bad_date2))
+          anomaly.save
+        end
       end
       
       # JDavis: if dependent = 'Spouse', must use 'Spouse'.
       if (row[0] == "DEPENDENT") && @employee.present?
         d_dob = row[10].is_a?(Date) ? row[10] : Date.strptime(row[10], '%m/%d/%Y') if row[10].present?
         r = (row[8] == 'Spouse') ? 'Spouse' : 'Dependent'
-        @employee.dependents.create(ssn: row[4], first_name: row[5], middle_name: row[6], last_name: row[7], dob: d_dob, relationship: r )
+        if row[4].is_a? Integer
+          @employee.dependents.create(ssn: row[4], first_name: row[5], middle_name: row[6], last_name: row[7], dob: d_dob, relationship: r )
+        else
+          @employee.dependents.create(lkq_id: row[3], first_name: row[5], middle_name: row[6], last_name: row[7], dob: d_dob, relationship: r )
+        end
       end
       
       # if spreadsheet.row(i)[0].present? &&

@@ -11,6 +11,7 @@
 #  dob         :date
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  lkq_id      :string
 #
 
 class Employee < ActiveRecord::Base
@@ -25,6 +26,25 @@ class Employee < ActiveRecord::Base
   
   def relationship
     'Self'
+  end
+  
+  def enrollment_date
+    elected = coverages.where(outcome: 'Elected').last 
+    if elected.present? && elected.enrollment_date.present?
+      elected.enrollment_date
+    else
+      nil
+    end
+    #elected.enrollment_date.present? ? elected.enrollment_date : nil
+  end
+  
+  def disenrollment_date
+    elected = coverages.where(outcome: 'Elected').last 
+    if elected.present? && elected.disenrollment_date.present? 
+      elected.disenrollment_date
+    else 
+      nil
+    end
   end
   
   def coverage_names

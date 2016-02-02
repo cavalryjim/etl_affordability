@@ -11,6 +11,7 @@
 #  dob         :date
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  lkq_id      :string
 #
 
 require 'test_helper'

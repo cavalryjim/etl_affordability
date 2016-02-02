@@ -11,6 +11,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  offer_date         :date
+#  plan_type          :string
 #
 
 require 'test_helper'

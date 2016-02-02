@@ -12,6 +12,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  relationship :string
+#  lkq_id       :string
 #
 
 require 'test_helper'
