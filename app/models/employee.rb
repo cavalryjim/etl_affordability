@@ -53,6 +53,10 @@ class Employee < ActiveRecord::Base
     end
   end
   
+  def elected_coverage
+    coverages.where(outcome: 'Elected').last
+  end
+  
   def display_ssn
     s = ssn.to_s
     "#{s[0,3]}-#{s[3,2]}-#{s[5,4]}"

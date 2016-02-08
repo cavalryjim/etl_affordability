@@ -63,6 +63,26 @@ class Dependent < ActiveRecord::Base
     end
   end
   
+  def elected_coverage
+    employee.elected_coverage
+  end
+  
+  def elected_plan_name
+    if elected_coverage.present? && elected_coverage.plan_name.present?
+      elected_coverage.plan_name.strip
+    else
+      nil
+    end
+  end
+  
+  def elected_outcome
+    if elected_coverage.present? && elected_coverage.outcome.present?
+      elected_coverage.outcome
+    else
+      nil
+    end
+  end
+  
   def covered?
     coverage = employee.coverages.where(outcome: 'Elected').last 
     return false unless (coverage.present? && coverage.plan_type.present?)

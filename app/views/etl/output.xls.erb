@@ -42,7 +42,7 @@
 	      <Cell><Data ss:Type="String"><!-- <%= employee.display_ssn %> --></Data></Cell>
 	      <Cell><!--<Data ss:Type="DateTime"> <%= employee.dob %> </Data>--></Cell>
         <!-- <Cell><Data ss:Type="Date"><%= employee.dob %> : Date - SHORT_DATE</Data></Cell> -->
-	      <Cell><Data ss:Type="String"><%= coverage.plan_name %></Data></Cell>
+	      <Cell><Data ss:Type="String"><%= coverage.plan_name.strip %></Data></Cell>
 	      
 	      <% if coverage.offer_date.present? %>
 	        <Cell><Data ss:Type="DateTime"><%= coverage.offer_date %></Data></Cell>
@@ -74,9 +74,9 @@
           <Cell><Data ss:Type="String"><%= dependent.name %></Data></Cell>
           <Cell><Data ss:Type="String"><%= dependent.display_ssn %></Data></Cell>
           <Cell><Data ss:Type="DateTime"><%= dependent.dob  %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= dependent.elected_plan_name %></Data></Cell>
           <Cell> </Cell>
-          <Cell> </Cell>
-          <Cell> </Cell>
+          <Cell><Data ss:Type="String"><%= dependent.elected_outcome %></Data></Cell>
           <% if dependent.enrollment_date.present? %>
             <Cell><Data ss:Type="DateTime"><%= dependent.enrollment_date %></Data></Cell>
           <% else %>
